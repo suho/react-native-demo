@@ -1,0 +1,22 @@
+# Structure
+
+- `/src`
+  - `/components` - 'Dumb-components' / presentational.
+    - `alerts`
+      - `index.js`
+      - `styles.js`
+    - `buttons`
+    - ...
+  - `/config` - App config.
+    - `config.js`
+    - ...
+  - `/containers` - 'Smart-components' / the business logic
+  - `/define` - Define base style, strings, colors.
+    - `styles.js`
+    - `colors.js`
+    - `strings.js`
+    - ...
+  - `/images` - Images resources.
+  - `/lib` - Utils, custom libraries, functions.
+  - `/navigation`- Routes - wire up the router with any & all screens.
+  - `/redux` - Redux Reducers & Actions grouped by type.

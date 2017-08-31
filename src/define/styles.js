@@ -4,16 +4,20 @@ import Sizes from './sizes';
 
 export default {
   appContainer: {
-    backgroundColor: '#000',
+    backgroundColor: Colors.black,
   },
   // Default
   container: {
     position: 'relative',
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: Colors.background,
+    backgroundColor: Colors.white245,
   },
   containerCentered: {
+    position: 'relative',
+    flex: 1,
+    flexDirection: 'column',
+    backgroundColor: Colors.white245,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -35,6 +39,10 @@ export default {
   },
 
   // Text Styles
+  testText: {
+    color: Colors.white245,
+    backgroundColor: Colors.black,
+  },
 
   // Helper Text Styles
   textCenterAligned: {

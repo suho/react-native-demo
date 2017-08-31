@@ -3,31 +3,23 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  Platform
 } from 'react-native';
+import Define from './define';
+import Config from './config/config';
 
 export default class ReactNativeDemo extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
+      <View style={[Define.Styles.container, Define.Styles.containerCentered]}>
+        <Text style={[Define.Styles.testText]}>
+          Welcome to React Native! ({Define.Strings.platform[Platform.OS]})
         </Text>
-      </View>
+        <Text style={[Define.Styles.testText]}>
+          App's name: {Config.appName}
+        </Text>
+      </View >
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-});
