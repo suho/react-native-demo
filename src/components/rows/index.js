@@ -11,9 +11,13 @@ class TestRow extends Component {
       <View style={{ flexDirection: 'row', paddingBottom: 10 }}>
         <Image
           style={{ width: 50, height: 50 }}
-          source={{ uri: 'https://facebook.github.io/react/img/logo_og.png' }}
+          source={{ uri: this.props.cover }}
         />
-        <Text style={{ padding: 10, fontSize: 18, height: 44 }}>{this.props.name}</Text>
+        <View style={{ flexDirection: 'column', paddingBottom: 10 }}>
+          <Text>{this.props.id}</Text>
+          <Text>{this.props.name}</Text>
+          <Text>{this.props.price}</Text>
+        </View>
       </View>
     );
   }

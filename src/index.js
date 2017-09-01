@@ -25,17 +25,25 @@ export default class ReactNativeDemo extends Component {
       text: '',
       shopId: 0,
       shopName: '',
-      menus: ds.cloneWithRows([
-        { key: 'Devin' },
-        { key: 'Jackson' },
-        { key: 'James' },
-        { key: 'Joel' },
-        { key: 'John' },
-        { key: 'Jillian' },
-        { key: 'Jimmy' },
-        { key: 'Julie' },
-      ])
+      menus: ds.cloneWithRows([])
     };
+  }
+
+  componentDidMount() {
+    return fetch('http://104.154.229.21/api/v1/shops/1')
+      .then((response) => response.json())
+      .then((json) => {
+        let ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
+        let data = json.data
+        this.setState({
+          shopId: data.id,
+          shopName: data.name,
+          menus: ds.cloneWithRows(data.menus[0].menuItems)
+        }, function () { });
+      })
+      .catch((error) => {
+        Alert.alert(error);
+      });
   }
 
   reverse(s) {
@@ -77,8 +85,9 @@ export default class ReactNativeDemo extends Component {
           </Text>
         </View>
         <ListView style={{ backgroundColor: '#BBDEFB', width: Define.Sizes.screen.width }}
+          enableEmptySections={true}
           dataSource={this.state.menus}
-          renderRow={(rowData) => <TestRow name={rowData.key} />}
+          renderRow={(rowData) => <TestRow id={rowData.id} cover={rowData.item.cover} name={rowData.item.name} price={rowData.price.unitPrice} />}
         />
         {/* <FlatList style={{ backgroundColor: '#BBDEFB', width: Define.Sizes.screen.width }}
           data={[
