@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import {
   AppRegistry,
   StyleSheet,
@@ -11,48 +11,97 @@ import {
   Alert,
   FlatList,
   ListView
-} from 'react-native';
-import Define from './define';
-import Config from './config/config';
-import TestRow from './components/rows';
+} from "react-native";
+import Define from "./define";
+import Config from "./config/config";
+import TestRow from "./components/rows";
+import { createStore } from "redux";
+
+// State
+let appState = { number: 1 };
+
+// Action
+const add = {
+  type: "ADD",
+  value: 1
+};
+
+const sub = {
+  type: "SUB",
+  value: 1
+};
+
+// Reducer
+const numberReducer = (state, action) => {
+  switch (action.type) {
+    case "ADD":
+      state.number += action.value;
+      break;
+    case "SUB":
+      state.number -= action.value;
+      break;
+  }
+  return state;
+};
+
+// Store
+const store = createStore(numberReducer, appState);
+
+// Test
+
+store.subscribe(() => {
+  console.log("State Updated", store.getState());
+});
+
+store.dispatch(add);
+store.dispatch(add);
 
 export default class ReactNativeDemo extends Component {
-
   constructor(props) {
     super(props);
-    const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
+    const ds = new ListView.DataSource({
+      rowHasChanged: (r1, r2) => r1 !== r2
+    });
     this.state = {
-      text: '',
+      text: "",
       shopId: 0,
-      shopName: '',
+      shopName: "",
       menus: ds.cloneWithRows([])
     };
   }
 
   componentDidMount() {
-    return fetch('http://104.154.229.21/api/v1/shops/1')
-      .then((response) => response.json())
-      .then((json) => {
-        let ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-        let data = json.data
-        this.setState({
-          shopId: data.id,
-          shopName: data.name,
-          menus: ds.cloneWithRows(data.menus[0].menuItems)
-        }, function () { });
+    return fetch("http://104.154.229.21/api/v1/shops/1")
+      .then(response => response.json())
+      .then(json => {
+        let ds = new ListView.DataSource({
+          rowHasChanged: (r1, r2) => r1 !== r2
+        });
+        let data = json.data;
+        this.setState(
+          {
+            shopId: data.id,
+            shopName: data.name,
+            menus: ds.cloneWithRows(data.menus[0].menuItems)
+          },
+          function() {}
+        );
       })
-      .catch((error) => {
+      .catch(error => {
         Alert.alert(error);
       });
   }
 
   reverse(s) {
-    return s.split("").reverse().join("");
+    return s
+      .split("")
+      .reverse()
+      .join("");
   }
 
   clearText = () => {
-    this._textInput.setNativeProps({ text: '' });
-  }
+    this._textInput.setNativeProps({ text: "" });
+  };
 
   render() {
     return (
@@ -65,29 +114,44 @@ export default class ReactNativeDemo extends Component {
             App's name: {Config.appName}
           </Text>
           <TextInput
-            style={{ height: 40, width: Define.Sizes.screen.width, textAlign: 'center' }}
+            style={{
+              height: 40,
+              width: Define.Sizes.screen.width,
+              textAlign: "center"
+            }}
             placeholder="Please type..."
-            onChangeText={(text) => this.setState({ text })}
-            ref={component => this._textInput = component}
+            onChangeText={text => this.setState({ text })}
+            ref={component => (this._textInput = component)}
           />
           <Button
             onPress={() => {
-              Alert.alert('Clear text');
-              this.setState((prevState) => {
-                return { text: '' };
+              Alert.alert("Clear text");
+              this.setState(prevState => {
+                return { text: "" };
               });
               this.clearText();
             }}
-            title='Press Me'
+            title="Press Me"
           />
           <Text style={{ padding: 10, fontSize: 42 }}>
             {this.reverse(this.state.text)}
           </Text>
         </View>
-        <ListView style={{ backgroundColor: '#BBDEFB', width: Define.Sizes.screen.width }}
+        <ListView
+          style={{
+            backgroundColor: "#BBDEFB",
+            width: Define.Sizes.screen.width
+          }}
           enableEmptySections={true}
           dataSource={this.state.menus}
-          renderRow={(rowData) => <TestRow id={rowData.id} cover={rowData.item.cover} name={rowData.item.name} price={rowData.price.unitPrice} />}
+          renderRow={rowData => (
+            <TestRow
+              id={rowData.id}
+              cover={rowData.item.cover}
+              name={rowData.item.name}
+              price={rowData.price.unitPrice}
+            />
+          )}
         />
         {/* <FlatList style={{ backgroundColor: '#BBDEFB', width: Define.Sizes.screen.width }}
           data={[
@@ -102,7 +166,7 @@ export default class ReactNativeDemo extends Component {
           ]}
           renderItem={({ item }) => <TestRow name={item.key} />}
         /> */}
-      </View >
+      </View>
     );
   }
 }
