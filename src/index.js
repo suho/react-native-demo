@@ -15,10 +15,10 @@ import {
 import Define from "./define";
 import Config from "./config/config";
 import TestRow from "./components/rows";
-import { createStore } from "redux";
+import { createStore, combineReducers, applyMiddleware } from "redux";
 
 // State
-let appState = { number: 1 };
+let appState = { number: 1, errorMessage: "" };
 
 // Action
 const add = {
@@ -32,29 +32,72 @@ const sub = {
 };
 
 // Reducer
-const numberReducer = (state, action) => {
+const numberReducer = (state = appState, action) => {
   switch (action.type) {
     case "ADD":
-      state.number += action.value;
+      state = {
+        ...state,
+        number: state.number + action.value
+      };
       break;
     case "SUB":
-      state.number -= action.value;
+      state = {
+        ...state,
+        number: state.number - action.value
+      };
       break;
   }
   return state;
 };
 
-// Store
-const store = createStore(numberReducer, appState);
+const errorReducer = (state = appState, action) => {
+  switch (action.type) {
+    case "GREATER_THAN_FIVE":
+      state = {
+        ...state,
+        errorMessage: "Number can not be greater than five"
+      };
+      break;
+  }
+  return state;
+};
 
-// Test
-
-store.subscribe(() => {
+// Middleware
+const logger = store => next => action => {
+  console.log("State", store.getState());
+  next(action);
   console.log("State Updated", store.getState());
+  alert("Status Updated", store.getState());
+};
+
+const checkNumber = store => next => action => {
+  const number = store.getState().number.number;
+  if (number > 5) {
+    next({ type: "GREATER_THAN_FIVE" });
+  } else {
+    next(action);
+  }
+  console.log("Current Number", number);
+};
+
+// Store
+const reducers = combineReducers({
+  number: numberReducer,
+  error: errorReducer
 });
 
-store.dispatch(add);
-store.dispatch(add);
+const store = createStore(reducers, applyMiddleware(logger, checkNumber));
+
+// Test
+// store.subscribe(() => {
+//   console.log("State Updated", store.getState());
+// });
+
+// store.dispatch(add);
+
+setTimeout(() => {
+  store.dispatch(add);
+}, 3000);
 
 export default class ReactNativeDemo extends Component {
   ds = new ListView.DataSource({
@@ -76,14 +119,11 @@ export default class ReactNativeDemo extends Component {
       .then(response => response.json())
       .then(json => {
         let data = json.data;
-        this.setState(
-          {
-            shopId: data.id,
-            shopName: data.name,
-            menus: this.ds.cloneWithRows(data.menus[0].menuItems)
-          },
-          function() {}
-        );
+        this.setState({
+          shopId: data.id,
+          shopName: data.name,
+          menus: this.ds.cloneWithRows(data.menus[0].menuItems)
+        });
       })
       .catch(error => {
         Alert.alert(error);
