@@ -1,6 +1,7 @@
 const app = {
-  white245: 'rgba(245,252,255,1)',
-  black: 'rgba(0,0,0,1)'
+  white245: "rgb(245,252,255)",
+  blue73: "rgb(73,87,98)",
+  black: "rgb(0,0,0)"
 };
 
 export default {
