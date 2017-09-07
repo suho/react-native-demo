@@ -14,8 +14,9 @@ import {
 } from "react-native";
 import Define from "./define";
 import Config from "./config/config";
-import TestRow from "./components/rows";
+import TestRow from "./components/rows/TestRow";
 import { createStore, combineReducers, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
 
 // State
 let appState = { number: 1, errorMessage: "" };
@@ -86,7 +87,10 @@ const reducers = combineReducers({
   error: errorReducer
 });
 
-const store = createStore(reducers, applyMiddleware(logger, checkNumber));
+const store = createStore(
+  reducers,
+  applyMiddleware(thunk, logger, checkNumber)
+);
 
 // Test
 // store.subscribe(() => {
@@ -95,9 +99,15 @@ const store = createStore(reducers, applyMiddleware(logger, checkNumber));
 
 // store.dispatch(add);
 
-setTimeout(() => {
-  store.dispatch(add);
-}, 3000);
+const addAfter3s = () => {
+  return dispatch => {
+    setTimeout(() => {
+      dispatch(add);
+    }, 3000);
+  };
+};
+
+store.dispatch(addAfter3s());
 
 export default class ReactNativeDemo extends Component {
   ds = new ListView.DataSource({
@@ -186,3 +196,6 @@ export default class ReactNativeDemo extends Component {
     );
   }
 }
+var styles = StyleSheet.create({
+  app: 
+})
