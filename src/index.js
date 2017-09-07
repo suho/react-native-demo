@@ -81,13 +81,6 @@ const loadMenus = () => {
 };
 
 export default class ReactNativeDemo extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      menus: appState.menus
-    };
-  }
-
   render() {
     return (
       <Provider store={store}>
