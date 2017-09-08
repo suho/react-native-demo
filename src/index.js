@@ -8,17 +8,18 @@ export default class ReactNativeDemo extends Component {
   render() {
     return (
       <Router>
-        <Drawer
-          key="drawer"
-          contentComponent={Splash}
-          drawerImage={require("./images/navi/ic_menu_button.png")}
-          navigationBarTitleImage={require("./images/navi/lux-stay.png")}
-          navigationBarStyle={{ backgroundColor: "white" }}
-          navigationBarTitleImageStyle={{ resizeMode: "cover" }}
-          rightButtonImage={require("./images/navi/ic_message.png")}
-          onRight={() => {}}
-        >
-          <Scene key="home" initial component={Home} />
+        <Drawer key="drawer" contentComponent={Splash}>
+          <Scene
+            key="home"
+            initial
+            component={Home}
+            drawerImage={require("./images/navi/ic_menu_button.png")}
+            navigationBarTitleImage={require("./images/navi/lux-stay.png")}
+            navigationBarStyle={{ backgroundColor: "white" }}
+            navigationBarTitleImageStyle={{ resizeMode: "cover" }}
+            rightButtonImage={require("./images/navi/ic_message.png")}
+            onRight={() => {}}
+          />
         </Drawer>
       </Router>
     );
