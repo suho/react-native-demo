@@ -1,10 +1,26 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Image } from "react-native";
 import Splash from "./containers/splash";
-import { Router } from "react-native-router-flux";
+import Home from "./containers/home";
+import { Router, Scene, Drawer } from "react-native-router-flux";
 
 export default class ReactNativeDemo extends Component {
   render() {
-    return <Splash />;
+    return (
+      <Router>
+        <Drawer
+          key="drawer"
+          contentComponent={Splash}
+          drawerImage={require("./images/navi/ic_menu_button.png")}
+          navigationBarTitleImage={require("./images/navi/lux-stay.png")}
+          navigationBarStyle={{ backgroundColor: "white" }}
+          navigationBarTitleImageStyle={{ resizeMode: "cover" }}
+          rightButtonImage={require("./images/navi/ic_message.png")}
+          onRight={() => {}}
+        >
+          <Scene key="home" initial component={Home} />
+        </Drawer>
+      </Router>
+    );
   }
 }

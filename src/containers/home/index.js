@@ -1,13 +1,13 @@
 import React, { Component } from "react";
-import { View, Button } from "react-native";
+import { View, Button, Text, StyleSheet } from "react-native";
 import Define from "../../define";
+import { Actions } from "react-native-router-flux";
 
-export default class Splash extends Component {
-  state = {};
+export default class Home extends Component {
   render() {
     return (
       <View style={Define.Styles.containerCentered}>
-        <Button onPress={() => {}} title="Back To Splash" />
+        <Text>Home</Text>
       </View>
     );
   }
