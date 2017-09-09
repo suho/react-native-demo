@@ -1,55 +1,55 @@
-import Colors from './colors';
-import Fonts from './fonts';
-import Sizes from './sizes';
+import Colors from "./colors";
+import Fonts from "./fonts";
+import Sizes from "./sizes";
 
 export default {
   appContainer: {
-    backgroundColor: Colors.black,
+    backgroundColor: Colors.black
   },
   // Default
   container: {
-    position: 'relative',
+    position: "relative",
     flex: 1,
-    flexDirection: 'column',
-    backgroundColor: Colors.white245,
+    flexDirection: "column",
+    backgroundColor: Colors.white245
   },
   containerCentered: {
-    position: 'relative',
+    position: "relative",
     flex: 1,
-    flexDirection: 'column',
+    flexDirection: "column",
     backgroundColor: Colors.white245,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center"
   },
   windowSize: {
     height: Sizes.screen.height,
-    width: Sizes.screen.width,
+    width: Sizes.screen.width
   },
 
   // Aligning items
   leftAligned: {
-    alignItems: 'flex-start',
+    alignItems: "flex-start"
   },
   centerAligned: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center"
   },
   rightAligned: {
-    alignItems: 'flex-end',
+    alignItems: "flex-end"
   },
 
   // Text Styles
   testText: {
     color: Colors.white245,
-    backgroundColor: Colors.black,
+    backgroundColor: Colors.black
   },
 
   // Helper Text Styles
   textCenterAligned: {
-    textAlign: 'center',
+    textAlign: "center"
   },
   textRightAligned: {
-    textAlign: 'right',
+    textAlign: "right"
   },
 
   // Give me padding
@@ -60,26 +60,26 @@ export default {
   row: {
     left: 0,
     right: 0,
-    flexDirection: 'row',
+    flexDirection: "row"
   },
   flex1: {
-    flex: 1,
+    flex: 1
   },
   flex2: {
-    flex: 2,
+    flex: 2
   },
   flex3: {
-    flex: 3,
+    flex: 3
   },
   flex4: {
-    flex: 4,
+    flex: 4
   },
   flex5: {
-    flex: 5,
+    flex: 5
   },
   flex6: {
-    flex: 6,
-  },
+    flex: 6
+  }
 
   // Navbar
 
