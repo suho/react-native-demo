@@ -50,5 +50,6 @@
         "workbench.action.terminal.scrollUpPage",
         "workbench.action.terminal.selectAll",
         "workbench.action.terminal.toggleTerminal"
-    ]
+    ],
+    "eslint.enable": true
 }
